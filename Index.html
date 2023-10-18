@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button Example</h1>
+
+    <p id="output">This is some sample text that can be copied, saved, or locked/unlocked.</p>
+
+    <button id="copyButton">Copy Text</button>
+    <button id="saveButton">Save Text</button>
+    <button id="lockUnlockButton">Lock</button>
+
+    <script>
+        const outputText = document.getElementById('output');
+        const copyButton = document.getElementById('copyButton');
+        const saveButton = document.getElementById('saveButton');
+        const lockUnlockButton = document.getElementById('lockUnlockButton');
+
+        copyButton.addEventListener('click', () => {
+            const textToCopy = outputText.textContent;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert('Text copied to clipboard');
+                })
+                .catch((err) => {
+                    console.error('Unable to copy text: ', err);
+                });
+        });
+
+        saveButton.addEventListener('click', () => {
+            // You can implement the save functionality here (e.g., using localStorage).
+            alert('Text saved');
+        });
+
+        let isLocked = false;
+        lockUnlockButton.addEventListener('click', () => {
+            isLocked = !isLocked;
+            if (isLocked) {
+                lockUnlockButton.textContent = 'Unlock';
+                outputText.contentEditable = false;
+            } else {
+                lockUnlockButton.textContent = 'Lock';
+                outputText.contentEditable = true;
+            }
+        });
+    </script>
+</body>
+</html>
